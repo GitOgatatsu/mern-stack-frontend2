@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+
+
 const Register = () => {
 
 	const [name, setName] = useState("");
@@ -22,7 +24,7 @@ const Register = () => {
 					password: password
 				})
 			});
-			console.log(response);
+//			console.log(response);
 			const jsonResponse = await response.json();
 			alert(jsonResponse.message);
 		} catch (err) {
