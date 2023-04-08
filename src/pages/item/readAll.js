@@ -21,7 +21,7 @@ const ReadAll = () => {
 		<div>
 			<h1>すべてのアイテムデータ</h1>
 			{allItems && allItems.allItems.map(item =>
-				<Link to="" key={item._id}>
+				<Link to={`/item/${item._id}`} key={item._id}>
 					<img src={require(`../../images${item.image}`)} alt="item" />
 					<h2>{item.price}</h2>
 					<h3>{item.title}</h3>

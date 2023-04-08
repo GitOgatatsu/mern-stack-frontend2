@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 
@@ -11,17 +11,18 @@ const ReadSingeItem = () => {
 	const [description, setDescription] = useState("");
 	const params = useParams();
 
-	const getSingleItem = async () => {
-		const response = await fetch(`http://localhost:5000/item/${params.id}`);
-		const jsonResponse = await response.json();
-		console.log(jsonResponse);
-		setTitle(jsonResponse.singleItem.title);
-		setPrice(jsonResponse.singleItem.price);
-		setImage(jsonResponse.singleItem.image);
-		setDescription(jsonResponse.singleItem.description);
-		console.log(jsonResponse.singleItem);
-		console.log(image);
-	};
+	useEffect(() => {
+		const getSingleItem = async () => {
+			const response = await fetch(`http://localhost:5000/item/${params.id}`);
+			const jsonResponse = await response.json();
+			console.log(jsonResponse);
+			setTitle(jsonResponse.singleItem.title);
+			setPrice(jsonResponse.singleItem.price);
+			setImage(jsonResponse.singleItem.image);
+			setDescription(jsonResponse.singleItem.description);
+		};
+		getSingleItem();
+	}, [params.id]);
 
 	return (
 		<div>
@@ -34,7 +35,6 @@ const ReadSingeItem = () => {
 				<hr />
 				<p>{description}</p>
 			</div>
-			<button onClick={getSingleItem}>個別データ取得</button>
 		</div>
 	);
 };
