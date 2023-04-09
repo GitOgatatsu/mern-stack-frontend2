@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 
 
@@ -34,6 +34,10 @@ const ReadSingeItem = () => {
 				<h2>¥{price}</h2>
 				<hr />
 				<p>{description}</p>
+			</div>
+			<div>
+				<Link to={`/item/update/${params.id}`}>アイテム編集</Link>
+				<Link to={`/item/delete/${params.id}`}>アイテム削除</Link>
 			</div>
 		</div>
 	);
