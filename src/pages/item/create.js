@@ -1,6 +1,8 @@
 import { useState } from "react";
 import useAuth from "../../utils/useAuth";
 
+
+
 const CreateItem = () => {
 
 	const [title, setTitle] = useState("");
@@ -33,28 +35,30 @@ const CreateItem = () => {
 	};
 
 	const loginUser = useAuth();
-//	console.log(loginUser);
 
-	return (
-		<div>
-			<h1>アイテム作成</h1>
-			<form onSubmit={handleSubmit}>
-				<input value={title}
-					onChange={(e) => setTitle(e.target.value)}
-					type="text" name="title" placeholder="アイテム名" required />
-				<input value={price}
-					onChange={(e) => setPrice(e.target.value)}
-					type="text" name="price" placeholder="価格" required />
-				<input value={image}
-					onChange={(e) => setImage(e.target.value)}
-					type="text" name="image" placeholder="画像" required />
-				<textarea value={description}
-					onChange={(e) => setDescription(e.target.value)}
-					type="text" name="description" placeholder="商品説明" required />
-				<button>作成</button>
-			</form>
-		</div>
-	);
+	if (loginUser) {
+		return (
+			<div>
+				<h1>アイテム作成</h1>
+				<form onSubmit={handleSubmit}>
+					<input value={title}
+						onChange={(e) => setTitle(e.target.value)}
+						type="text" name="title" placeholder="アイテム名" required />
+					<input value={price}
+						onChange={(e) => setPrice(e.target.value)}
+						type="text" name="price" placeholder="価格" required />
+					<input value={image}
+						onChange={(e) => setImage(e.target.value)}
+						type="text" name="image" placeholder="画像" required />
+					<textarea value={description}
+						onChange={(e) => setDescription(e.target.value)}
+						type="text" name="description" placeholder="商品説明" required />
+					<button>作成</button>
+				</form>
+			</div>
+		);
+	}
+
 };
 
 export default CreateItem;

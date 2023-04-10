@@ -9,32 +9,31 @@ const useAuth = () => {
 
 
 	useEffect(() => {
-		const token = localStorage.getItem("token");
 
-		if (!token) {
-			navigate("/user/login");
-		}
+		const checkLogin = async () => {
+			const token = await localStorage.getItem("token");
 
-		try {
-			const decode = jwt_decode(token);
-			setLoginUser(decode.email);
-		} catch (err) {
-			navigate("/user/login");
-		}
+			if (!token) {
+				navigate("/user/login");
+			}
 
-		const getUserLogin = async () => {
 			try {
-				const response = await fetch(`http://localhost:5000/user/check/${loginUser}`);
-				if (response.status === 400) {
-					navigate("/user/login");
+				const decode = jwt_decode(token);
+				setLoginUser(decode.email);
+				if (loginUser) {
+					const response = await fetch(`http://localhost:5000/user/check/${loginUser}`);
+					console.log(response.status);
+					if (response.status === 400) {
+						navigate("/user/login");
+					}
 				}
 			} catch (err) {
 				navigate("/user/login");
 			}
 		};
-		getUserLogin();
+		checkLogin();
 
-	}, [navigate]);
+	}, [navigate, loginUser]);
 
 	return loginUser;
 
