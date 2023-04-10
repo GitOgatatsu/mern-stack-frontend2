@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useAuth from "../../utils/useAuth";
 
 const CreateItem = () => {
 
@@ -30,6 +31,9 @@ const CreateItem = () => {
 			alert("アイテム作成失敗");
 		}
 	};
+
+	const loginUser = useAuth();
+//	console.log(loginUser);
 
 	return (
 		<div>
