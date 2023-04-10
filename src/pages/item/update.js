@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../../utils/useAuth";
 
 
@@ -12,8 +12,11 @@ const UpdateItem = () => {
 	const [description, setDescription] = useState("");
 	const [email, setEmail] = useState("");
 	const params = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
+		document.title = "アイテム編集ページ";
+
 		const getSingleItem = async () => {
 			const response = await fetch(`http://localhost:5000/item/${params.id}`);
 			const jsonResponse = await response.json();
@@ -46,6 +49,7 @@ const UpdateItem = () => {
 			});
 			const jsonResponse = await response.json();
 			alert(jsonResponse.message);
+			navigate("/");
 		} catch (err) {
 			alert("アイテム編集失敗");
 		}
@@ -56,7 +60,7 @@ const UpdateItem = () => {
 	if (loginUser === email) {
 		return (
 			<div>
-				<h1>アイテム編集</h1>
+				<h1 className="page-title">アイテム編集</h1>
 				<form onSubmit={handleSubmit}>
 					<input value={title}
 						onChange={(e) => setTitle(e.target.value)}

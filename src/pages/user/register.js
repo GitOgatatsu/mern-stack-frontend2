@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Register = () => {
+	const navigate = useNavigate();
 
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
@@ -27,14 +29,19 @@ const Register = () => {
 //			console.log(response);
 			const jsonResponse = await response.json();
 			alert(jsonResponse.message);
+			navigate("/user/login");
 		} catch (err) {
 			alert("ユーザ登録失敗");
 		}
 	};
 
+	useEffect(() => {
+		document.title = "登録ページ";
+	}, []);
+
 	return (
 		<div>
-			<h1>登録ページ</h1>
+			<h1 className="page-title">ユーザ登録ページ</h1>
 			<form onSubmit={handleSubmit}>
 				<input value={name}
 					onChange={(e) => {

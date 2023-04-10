@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -6,6 +7,7 @@ const Login = () => {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -22,18 +24,23 @@ const Login = () => {
 				})
 			});
 			const jsonResponse = await response.json();
-//			console.log(jsonResponse);
+			console.log(jsonResponse);
 			localStorage.setItem("token", jsonResponse.token);
 			alert(jsonResponse.message);
+			navigate("/");
 		} catch (err) {
 			alert("ログイン失敗");
 		}
 
 	};
 
+	useEffect(() => {
+		document.title = "ログインページ";
+	}, []);
+
 	return (
 		<div>
-			<h1>ログインページ</h1>
+			<h1 className="page-title">ログイン</h1>
 			<form onSubmit={handleSubmit}>
 				<input value={email}
 					onChange={(e) => {

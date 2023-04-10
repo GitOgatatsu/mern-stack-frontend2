@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../../utils/useAuth";
 
 
@@ -12,8 +12,11 @@ const DeleteItem = () => {
 	const [description, setDescription] = useState("");
 	const [email, setEmail] = useState("");
 	const params = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
+		document.title = "アイテム削除ページ";
+
 		const getSingleItem = async () => {
 			const response = await fetch(`http://localhost:5000/item/${params.id}`);
 			const jsonResponse = await response.json();
@@ -40,6 +43,7 @@ const DeleteItem = () => {
 			});
 			const jsonResponse = await response.json();
 			alert(jsonResponse.message);
+			navigate("/");
 		} catch (err) {
 			alert("アイテム削除失敗");
 		}
@@ -49,8 +53,8 @@ const DeleteItem = () => {
 
 	if (loginUser === email) {
 		return (
-			<div>
-				<h1>アイテム削除</h1>
+			<div className="delete-page">
+				<h1 className="page-title">アイテム削除</h1>
 				<form onSubmit={handleSubmit}>
 					<h2>{title}</h2>
 					{image && <img src={require(`../../images${image}`)} alt="item" />}

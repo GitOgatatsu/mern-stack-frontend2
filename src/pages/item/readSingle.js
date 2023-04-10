@@ -12,6 +12,8 @@ const ReadSingeItem = () => {
 	const params = useParams();
 
 	useEffect(() => {
+		document.title = title;
+
 		const getSingleItem = async () => {
 			const response = await fetch(`http://localhost:5000/item/${params.id}`);
 			const jsonResponse = await response.json();
@@ -22,10 +24,10 @@ const ReadSingeItem = () => {
 			setDescription(jsonResponse.singleItem.description);
 		};
 		getSingleItem();
-	}, [params.id]);
+	}, [params.id, title]);
 
 	return (
-		<div>
+		<div className="grid-container-si">
 			<div>
 				{image && <img src={require(`../../images${image}`)} alt="item" />}
 			</div>

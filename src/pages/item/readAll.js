@@ -8,7 +8,8 @@ const ReadAll = () => {
 	const [allItems, setAllItems] = useState("");
 
 	useEffect(() => {
-		console.log("TEST");
+		document.title = "MERN Market";
+
 		const getAllItems = async () => {
 			const response = await fetch("http://localhost:5000");
 			const jsonResponse = await response.json();
@@ -18,8 +19,7 @@ const ReadAll = () => {
 	}, []);
 
 	return (
-		<div>
-			<h1>すべてのアイテムデータ</h1>
+		<div className="grid-conatinser-in">>
 			{allItems && allItems.allItems.map(item =>
 				<Link to={`/item/${item._id}`} key={item._id}>
 					<img src={require(`../../images${item.image}`)} alt="item" />

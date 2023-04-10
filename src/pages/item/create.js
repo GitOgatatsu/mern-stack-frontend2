@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../utils/useAuth";
 
 
@@ -9,6 +10,7 @@ const CreateItem = () => {
 	const [price, setPrice] = useState("");
 	const [image, setImage] = useState("");
 	const [description, setDescription] = useState("");
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -29,17 +31,23 @@ const CreateItem = () => {
 			});
 			const jsonResponse = await response.json();
 			alert(jsonResponse.message);
+			navigate("/");
 		} catch (err) {
 			alert("アイテム作成失敗");
 		}
 	};
 
+	useEffect(() => {
+		document.title = "アイテム作成ページ";
+	});
+
 	const loginUser = useAuth();
+//	console.log(loginUser);
 
 	if (loginUser) {
 		return (
 			<div>
-				<h1>アイテム作成</h1>
+				<h1 className="page-title">アイテム作成</h1>
 				<form onSubmit={handleSubmit}>
 					<input value={title}
 						onChange={(e) => setTitle(e.target.value)}
